@@ -26,4 +26,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           # This passes the JSON body from Make directly into Python
           PAYLOAD: ${{ toJson(github.event.client_payload) }}
-        run: python upload_photos.py
+        run: python shelterluv-petportal.py
