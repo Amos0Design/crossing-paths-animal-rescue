@@ -1,0 +1,29 @@
+name: FTP Photo Uploader
+
+on:
+  repository_dispatch:
+    types: [upload_photos]
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install Requirements
+        run: pip install requests
+        
+      - name: Run Upload Script
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          # This passes the JSON body from Make directly into Python
+          PAYLOAD: ${{ toJson(github.event.client_payload) }}
+        run: python upload_photos.py
