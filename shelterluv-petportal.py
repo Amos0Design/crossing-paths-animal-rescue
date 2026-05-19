@@ -33,8 +33,12 @@ ftp.login(user=ftp_user, passwd=ftp_pass)
 
 # 3. Process each photo
 for url in photo_urls:
-    # SAFETY CHECK: Skip if the URL is blank or just spaces
-    if not url or not url.strip():
+    # 1. CLEAN THE URL: Strip away any stray spaces, commas, or quotes Make tacked on
+    if isinstance(url, str):
+        url = url.strip().rstrip(',')
+
+    # 2. SAFETY CHECK: Skip if the URL is blank after cleaning
+    if not url:
         print("Skipping empty URL entry.")
         continue
 
