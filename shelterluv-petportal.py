@@ -41,6 +41,9 @@ print(f"Connecting to FTP: {ftp_host}")
 ftp = FTP(ftp_host)
 ftp.login(user=ftp_user, passwd=ftp_pass)
 
+ftp.cwd('/import/pictures')
+print(f"Navigated to folder: /import/pictures")
+
 # 4. Process each photo
 for url in photo_urls:
     print(f"\nDownloading: {url}")
