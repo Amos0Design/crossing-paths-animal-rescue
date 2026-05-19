@@ -47,8 +47,9 @@ for url in photo_urls:
     if '?' in filename:
         filename = filename.split('?')[0]
 
-    # Download the image from the shelter software
-    response = requests.get(url)
+    # Download the image, disguised as a standard web browser
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+    response = requests.get(url, headers=headers)
     if response.status_code == 200:
         # Save it temporarily to the GitHub Action runner
         with open(filename, 'wb') as f:
