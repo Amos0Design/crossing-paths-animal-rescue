@@ -23,6 +23,11 @@ print(f"Successfully found {len(photo_urls)} photos to process.")
 
 # Process each photo
 for url in photo_urls:
+    # SAFETY CHECK: Skip if the URL is blank or just spaces
+    if not url or not url.strip():
+        print("Skipping empty URL entry.")
+        continue
+
     print(f"\nAttempting to download: {url}")
     filename = url.split('/')[-1]
     if '?' in filename:
@@ -35,5 +40,5 @@ for url in photo_urls:
         # FTP upload code is safely removed for this test
     else:
         print(f"FAILED: Could not download {url}. Status: {response.status_code}")
-
+        
 print("\n--- TEST COMPLETE ---")
